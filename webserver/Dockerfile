@@ -32,6 +32,10 @@ COPY ./php/ /var/www/html/php
 COPY ./phpmyadmin /var/www/phpmyadmin
 COPY ./wordpress /var/www/wordpress
 
+# Créer le dossier pour le socket PHP-FPM
+RUN mkdir -p /run/php \
+    && chown -R www-data:www-data /run/php
+
 # Télécharger Wordpress & PhpMyAdmin
 RUN wget https://wordpress.org/latest.tar.gz -P /tmp \
     && tar -xzf /tmp/latest.tar.gz -C /tmp \
@@ -50,9 +54,6 @@ COPY conf/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY ./init.sh /init.sh
 RUN chmod +x /init.sh
 
-
-
 EXPOSE 3000
-
 
 CMD ["/bin/bash", "/init.sh"]

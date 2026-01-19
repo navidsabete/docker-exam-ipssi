@@ -40,7 +40,7 @@ docker run -d --name <nom-du-conteneur-que-vous-avez-créé> --env-file .env -p 
 
 - http://localhost:3000/ pour la page d'accueil
 - http://localhost:3000/php/ pour la page d'index PHP
-- http://localhost:3000/phpmyadmin pour gérer la base de données
+- http://localhost:3000/phpmyadmin/ pour gérer la base de données
 - http://localhost:3000/wordpress/ pour WordPress
 
 ----

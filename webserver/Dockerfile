@@ -27,7 +27,7 @@ RUN mkdir -p /var/www/html \
     && mkdir -p /var/www/php \
     && chown -R www-data:www-data /var/www
 
-# Copier le contenu local
+# Copier le contenu web local
 COPY ./index.html /var/www/index.html
 COPY ./php/ /var/www/php
 COPY ./phpmyadmin /var/www/phpmyadmin
@@ -51,6 +51,8 @@ COPY conf/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY ./init.sh /init.sh
 RUN chmod +x /init.sh
 
+# Port accessible pour le traffic
 EXPOSE 3000
 
+# Exécution lors du démarrage du conteneur
 CMD ["/bin/bash", "/init.sh"]

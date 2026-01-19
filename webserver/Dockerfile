@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
         php-fpm \
         php-mysql \
         php-curl \
+        php-cli \
         php-gd \
         php-mbstring \
         php-xml \
@@ -27,14 +28,10 @@ RUN mkdir -p /var/www/html \
     && chown -R www-data:www-data /var/www
 
 # Copier le contenu local
-COPY ./index.html /var/www/html/index.html
-COPY ./php/ /var/www/html/php
+COPY ./index.html /var/www/index.html
+COPY ./php/ /var/www/php
 COPY ./phpmyadmin /var/www/phpmyadmin
 COPY ./wordpress /var/www/wordpress
-
-# Créer le dossier pour le socket PHP-FPM
-RUN mkdir -p /run/php \
-    && chown -R www-data:www-data /run/php
 
 # Télécharger Wordpress & PhpMyAdmin
 RUN wget https://wordpress.org/latest.tar.gz -P /tmp \

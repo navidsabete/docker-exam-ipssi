@@ -3,9 +3,13 @@
 set -e  # Stop le script si une commande échoue
 
 echo "[INFO] Démarrage temporaire de MariaDB pour initialisation..."
-mysqld_safe --skip-networking --datadir=/var/lib/mysql &
+mysqld_safe --skip-networking &
 PID=$!
-sleep 5  # laisse le temps au serveur de démarrer
+
+# Attendre que MariaDB soit prêt
+until mysqladmin ping --silent; do
+    sleep 1
+done
 
 echo "[INFO] Création de la base de données et de l'utilisateur..."
 mysql -u root <<EOF
@@ -17,9 +21,10 @@ EOF
 
 echo "[INFO] Base de données prête !"
 
+# Arrêter l'instance temporaire
 echo "[INFO] Arrêt temporaire de MariaDB avant lancement via Supervisor..."
-kill $PID
-sleep 2
+mysqladmin shutdown
+wait $PID
 
 echo "[INFO] Démarrage de Supervisor..."
 exec /usr/bin/supervisord -n

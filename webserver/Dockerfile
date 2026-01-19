@@ -2,14 +2,8 @@ FROM debian:bullseye
 
 WORKDIR /webserver
 
-ENV AUTOINDEX=${AUTOINDEX}
-ENV DB_NAME=${DB_NAME}
-ENV DB_USER=${DB_USER}
-ENV DB_PASSWORD=${DB_PASSWORD}
-ENV DB_HOST=${DB_HOST}
-
 # Mise à jour et Installation des services
-RUN apt-get-update && apt-get-install -y \
+RUN apt-get update && apt-get install -y \
         mariadb-server \
         php \
         php-fpm \
@@ -22,7 +16,8 @@ RUN apt-get-update && apt-get-install -y \
         wget \
         unzip \
         supervisor \
-    apt clean && rm -rf /var/lib/apt/lists/*
+        && apt clean \
+        && rm -rf /var/lib/apt/lists/*
 
 # Création des dossiers web
 RUN mkdir -p /var/www/html \

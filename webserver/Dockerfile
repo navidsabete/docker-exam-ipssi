@@ -17,10 +17,16 @@ RUN apt-get update && apt-get install -y \
         wget \
         unzip \
         supervisor \
+        nginx \
+        gettext-base \
         && apt clean \
         && rm -rf /var/lib/apt/lists/*
 
+# Création dossier de socket PHP-FPM
+RUN mkdir -p /run/php && chown -R www-data:www-data /run/php
+
 # Création des dossiers web
+COPY conf/nginx-template.conf /etc/nginx/conf.d/default.conf.template
 RUN mkdir -p /var/www/html \
     && mkdir -p /var/www/phpmyadmin \
     && mkdir -p /var/www/wordpress \

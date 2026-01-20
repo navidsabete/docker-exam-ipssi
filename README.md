@@ -47,4 +47,5 @@ docker run -d --name <nom-du-conteneur-que-vous-avez-créé> --env-file .env -p 
 
 **INFO**
 
-Bonus non implementé
+Bonus implementé :
+- *nginx.conf* 

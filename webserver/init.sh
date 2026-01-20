@@ -26,5 +26,13 @@ echo "[INFO] Arrêt temporaire de MariaDB avant lancement via Supervisor..."
 mysqladmin shutdown
 wait $PID
 
+AUTOINDEX=${AUTOINDEX}
+
+echo "[INFO] Génération de la config Nginx avec AUTOINDEX=${AUTOINDEX}"
+
+envsubst '${AUTOINDEX}' \
+    < /etc/nginx/conf.d/default.conf.template \
+    > /etc/nginx/conf.d/default.conf
+
 echo "[INFO] Démarrage de Supervisor..."
 exec /usr/bin/supervisord -n

@@ -3,6 +3,17 @@ FROM debian:bullseye
 WORKDIR /webserver
 
 # Mise à jour et Installation des services
+RUN apt-get update && apt-get install -y openssl
+
+# SSL auto-signé
+RUN openssl req -x509 -nodes -days 365 \
+    -newkey rsa:2048 \
+    -subj "/C=FR/ST=Occitanie/L=Montpellier/O=Student/CN=localhost" \
+    -addext "subjectAltName=DNS:localhost,DNS:webserver.local" \
+    -keyout /etc/ssl/private/nginx-selfsigned.key \
+    -out /etc/ssl/certs/nginx-selfsigned.crt
+
+# Mise à jour et Installation des services
 RUN apt-get update && apt-get install -y \
         mariadb-server \
         php \
@@ -21,6 +32,7 @@ RUN apt-get update && apt-get install -y \
         gettext-base \
         && apt clean \
         && rm -rf /var/lib/apt/lists/*
+
 
 # Création dossier de socket PHP-FPM
 RUN mkdir -p /run/php && chown -R www-data:www-data /run/php
@@ -58,7 +70,7 @@ COPY ./init.sh /init.sh
 RUN chmod +x /init.sh
 
 # Port accessible pour le traffic
-EXPOSE 3000
+EXPOSE 3000 443
 
 # Exécution lors du démarrage du conteneur
 CMD ["/bin/bash", "/init.sh"]

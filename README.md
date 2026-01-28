@@ -31,7 +31,7 @@ docker build -t <nom-du-conteneur-que-vous-souhaitez-donner> .
 ```
 
 ```bash
-docker run -d --name <nom-du-conteneur-que-vous-avez-créé> --env-file .env -p 3000:3000 <nom-du-conteneur-que-vous-avez-créé>
+docker run -d --name <nom-du-conteneur-que-vous-avez-créé> --env-file .env -p 3000:3000 -p 443:443 <nom-du-conteneur-que-vous-avez-créé>
 ```
 
 ----
@@ -43,9 +43,21 @@ docker run -d --name <nom-du-conteneur-que-vous-avez-créé> --env-file .env -p 
 - http://localhost:3000/phpmyadmin/ pour gérer la base de données
 - http://localhost:3000/wordpress/ pour WordPress
 
+
 ----
 
 **INFO**
 
-Bonus implementé :
-- *nginx.conf* 
+Bonus *nginx.conf* implementé
+
+**🌐 Accès au serveur**
+
+Par défaut :
+https://localhost/
+
+Optionnel (friendly name) :
+https://webserver.local/
+
+Pour utiliser le friendly name, ajoutez :
+127.0.0.1 webserver.local
+dans votre fichier /etc/hosts

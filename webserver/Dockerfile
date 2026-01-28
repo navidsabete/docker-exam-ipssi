@@ -8,7 +8,8 @@ RUN apt-get update && apt-get install -y openssl
 # SSL auto-signé
 RUN openssl req -x509 -nodes -days 365 \
     -newkey rsa:2048 \
-    -subj "/C=FR/ST=Occitanie/L=Montpellier/O=Student/CN=webserver.local" \
+    -subj "/C=FR/ST=Occitanie/L=Montpellier/O=Student/CN=localhost" \
+    -addext "subjectAltName=DNS:localhost,DNS:webserver.local" \
     -keyout /etc/ssl/private/nginx-selfsigned.key \
     -out /etc/ssl/certs/nginx-selfsigned.crt
 

@@ -8,8 +8,8 @@ Les services sont gérés par **Supervisor**, et la configuration de la base de 
 
 **⚙️ Variables d'environnement**
 
-Les variables sont définis dans un fichier *.env*
-Vous trouverez le modèle on *env_template.txt* que vous aurez besoin de copier dans votre propre fichier *.env* sur votre machine. Affectez ensuite la valeur que vous souhaitez sur chaque variable.
+Les variables sont définis dans un fichier *.env*.
+Vous trouverez le modèle sur *.env.template* que vous aurez besoin de copier dans votre propre fichier *.env* sur votre machine. Affectez ensuite la valeur que vous souhaitez sur chaque variable.
 
 **🛢️ Initialisation de la base de données**
 
